@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ellaine/CLionProjects/MsgQ_Priority/filemanager.h
+iostream
+-
+fstream
+-
+
+/home/ellaine/CLionProjects/MsgQ_Priority/main.cpp
+iostream
+-
+stdio.h
+-
+sys/types.h
+-
+sys/ipc.h
+-
+sys/msg.h
+-
+stdlib.h
+-
+unistd.h
+-
+time.h
+-
+filemanager.h
+/home/ellaine/CLionProjects/MsgQ_Priority/filemanager.h
+errno.h
+-
+cstring
+-
+
