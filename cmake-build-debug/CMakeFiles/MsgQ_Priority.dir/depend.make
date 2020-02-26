@@ -3,4 +3,5 @@
 
 CMakeFiles/MsgQ_Priority.dir/main.cpp.o: ../filemanager.h
 CMakeFiles/MsgQ_Priority.dir/main.cpp.o: ../main.cpp
+CMakeFiles/MsgQ_Priority.dir/main.cpp.o: ../mesg.h
 
