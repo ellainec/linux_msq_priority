@@ -26,9 +26,11 @@ typedef struct {
 class msq {
 public:
     msq(){};
+    ~msq() {};
     int send_message(long type,  std::string message);
     std::string read_message(long type);
     bool getmsq(key_t key);
+    void deleteMsq();
 private:
     int id;
 };

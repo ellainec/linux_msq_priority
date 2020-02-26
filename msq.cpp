@@ -36,3 +36,10 @@ bool msq::getmsq(key_t key) {
     }
     return true;
 }
+
+void msq::deleteMsq() {
+    if (msgctl (id, IPC_RMID, 0) < 0)
+    {
+        perror ("msgctl (remove queue) failed!");
+    }
+}

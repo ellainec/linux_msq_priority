@@ -17,6 +17,7 @@
 class server {
 public:
     server(msq* Msq) : Msq(Msq){};
+    ~server();
     void start();
 private:
     msq* Msq;

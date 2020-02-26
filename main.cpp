@@ -43,12 +43,6 @@ int main (int argc , char *argv[])
     }
     delete Msq;
 
-    // Remove the message queue
-//    if (msgctl (msq_id, IPC_RMID, 0) < 0)
-//    {
-//        perror ("msgctl (remove queue) failed!");
-//        exit (3);
-//    }
     exit(0);
 }
 

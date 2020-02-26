@@ -76,3 +76,7 @@ int server::getBufferSize(int priority) {
         default: return -1;
     }
 }
+
+server::~server() {
+    Msq->deleteMsq();
+}
