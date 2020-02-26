@@ -51,13 +51,13 @@ void server::send_file(int priority, std::string filename, std::string pid) {
         if (filelength < (buffersize - 1)) {
             std::cout << "filelength: " << filelength << " buffersize: " << buffersize << std::endl;
             length = filelength;
-            memset(buffer, 0, sizeof(buffer));
         }
         fm.read(buffer, length);
         if (Msq->send_message(clientpid, buffer)) {
             perror("msgsend fail");
             break;
         }
+        memset(buffer, 0, sizeof(buffer));
         filelength -= length;
         std::cout << "sent to " << pid << " priority: " << priority << std::endl;
     }
