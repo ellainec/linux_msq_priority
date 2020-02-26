@@ -3,4 +3,4 @@ project(MsgQ_Priority)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(MsgQ_Priority main.cpp)
+add_executable(MsgQ_Priority main.cpp server.cpp msq.cpp msq.h client.h)

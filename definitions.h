@@ -1,8 +1,0 @@
-//
-// Created by ellaine on 2020-02-25.
-//
-
-#ifndef MSGQ_PRIORITY_DEFINITIONS_H
-#define MSGQ_PRIORITY_DEFINITIONS_H
-
-#endif //MSGQ_PRIORITY_DEFINITIONS_H

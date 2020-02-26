@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/MsgQ_Priority.dir/main.cpp.o  -o MsgQ_Priority 
+/usr/bin/c++  -g   CMakeFiles/MsgQ_Priority.dir/main.cpp.o CMakeFiles/MsgQ_Priority.dir/server.cpp.o CMakeFiles/MsgQ_Priority.dir/msq.cpp.o  -o MsgQ_Priority 

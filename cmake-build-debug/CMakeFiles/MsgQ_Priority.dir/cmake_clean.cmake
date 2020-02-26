@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MsgQ_Priority.dir/main.cpp.o"
+  "CMakeFiles/MsgQ_Priority.dir/msq.cpp.o"
+  "CMakeFiles/MsgQ_Priority.dir/server.cpp.o"
   "MsgQ_Priority"
   "MsgQ_Priority.pdb"
 )

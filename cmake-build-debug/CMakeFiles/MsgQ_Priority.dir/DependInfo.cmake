@@ -5,6 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ellaine/CLionProjects/MsgQ_Priority/main.cpp" "/home/ellaine/CLionProjects/MsgQ_Priority/cmake-build-debug/CMakeFiles/MsgQ_Priority.dir/main.cpp.o"
+  "/home/ellaine/CLionProjects/MsgQ_Priority/msq.cpp" "/home/ellaine/CLionProjects/MsgQ_Priority/cmake-build-debug/CMakeFiles/MsgQ_Priority.dir/msq.cpp.o"
+  "/home/ellaine/CLionProjects/MsgQ_Priority/server.cpp" "/home/ellaine/CLionProjects/MsgQ_Priority/cmake-build-debug/CMakeFiles/MsgQ_Priority.dir/server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -84,7 +84,22 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/client.h">
+			<Option target="MsgQ_Priority"/>
+		</Unit>
 		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/main.cpp">
+			<Option target="MsgQ_Priority"/>
+		</Unit>
+		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/msq.cpp">
+			<Option target="MsgQ_Priority"/>
+		</Unit>
+		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/msq.h">
+			<Option target="MsgQ_Priority"/>
+		</Unit>
+		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/server.cpp">
+			<Option target="MsgQ_Priority"/>
+		</Unit>
+		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/server.h">
 			<Option target="MsgQ_Priority"/>
 		</Unit>
 		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/CMakeLists.txt">
