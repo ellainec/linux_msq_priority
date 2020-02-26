@@ -38,13 +38,24 @@ void server::start() {
 void server::send_file(int priority, std::string filename, std::string pid) {
     int buffersize = getBufferSize(priority);
     char buffer[buffersize];
+    memset(buffer, 0, sizeof(buffer));
+    long clientpid = atoi(pid.c_str());
     filemanager fm;
     int errno;
     int filelength = fm.openFile(filename);
     if (filelength < 0) {
         printf("error: %s", strerror(errno));
+        sprintf(buffer, "Unable to open file %s", filename.c_str());
+        if (Msq->send_message(clientpid, buffer)) {
+            perror("msgsend fail");
+        }
+        //send empty buffer to close client
+        memset(buffer, 0, sizeof(buffer));
+        if (Msq->send_message(clientpid, buffer)) {
+            perror("msgsend fail");
+        }
     }
-    long clientpid = atoi(pid.c_str());
+
 
     while(filelength > 0) {
         int length = buffersize - 1;
