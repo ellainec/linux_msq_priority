@@ -71,9 +71,9 @@ void server::send_file(int priority, std::string filename, std::string pid) {
 int server::getBufferSize(int priority) {
     switch (priority) {
         case 1: return 4000;
-        case 2: return 1500;
-        case 3: return 100;
-        case 4: return 10;
+        case 2: return 1600;
+        case 3: return 400;
+        case 4: return 100;
         default: return -1;
     }
 }
