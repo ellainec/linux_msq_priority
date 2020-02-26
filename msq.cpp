@@ -3,6 +3,7 @@
 //
 
 #include "msq.h"
+int msq::id = -1;
 
 int msq::send_message(long type,  std::string message) {
     Mesg sendmsg;

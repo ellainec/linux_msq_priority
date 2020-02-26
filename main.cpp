@@ -6,11 +6,24 @@
 #include "server.h"
 #include "msq.h"
 #include "client.h"
+#include <signal.h>
+
 #define KEY_ID 2222
+
+void catch_int(int signo)
+{
+    if (msq::id != -1) {
+        if (msgctl (msq::id, IPC_RMID, 0) < 0)
+        {
+            perror ("msgctl (remove queue) failed!");
+        }
+    }
+    exit(0);
+}
 
 int main (int argc , char *argv[])
 {
-
+    signal(SIGINT, catch_int);
     if (argc < 2)
     {
         fprintf (stderr, "Usage: msg_queues <server or client> <priority (1 to 4, 1 being highest)> <filename> \n");
@@ -41,8 +54,8 @@ int main (int argc , char *argv[])
         c->run_client(priority, filename);
         delete c;
     }
-    delete Msq;
-
+    //Msq->deleteMsq();
+    //delete Msq;
     exit(0);
 }
 

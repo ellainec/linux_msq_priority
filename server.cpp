@@ -12,19 +12,20 @@ void server::start() {
     while (keepGoing) {
 
         std::string msgRead = Msq->read_message(CLIENT_TO_SERVER_TYPE);
-        //message format: <priority><pid>:<filename>
-        int priority = atoi(msgRead.substr(0, 1).c_str());
-        //find pid
-        int seperater = msgRead.find(':');
-        std::string child_pid = msgRead.substr(1, seperater-1);
-        std::string filename = msgRead.substr(seperater+1, msgRead.size());
+        if(msgRead.size() > 0) {
+            //message format: <priority><pid>:<filename>
+            int priority = atoi(msgRead.substr(0, 1).c_str());
+            //find pid
+            int seperater = msgRead.find(':');
+            std::string child_pid = msgRead.substr(1, seperater-1);
+            std::string filename = msgRead.substr(seperater+1, msgRead.size());
 
-        std::cout << "priority: " << priority << ", filename: " << filename << " pid: " << child_pid << std::endl;
-        if (fork() == 0) {
-            std::cout << "i am child forked" << std::endl;
-            keepGoing = false;
-            send_file(priority, filename, child_pid);
-            return;
+            std::cout << "priority: " << priority << ", filename: " << filename << " pid: " << child_pid << std::endl;
+            if (fork() == 0) {
+                std::cout << "i am child forked" << std::endl;
+                send_file(priority, filename, child_pid);
+                return;
+            }
         }
     }
 //    std::cout << "outside of while loop" << std::endl;
@@ -72,11 +73,11 @@ int server::getBufferSize(int priority) {
         case 1: return 4000;
         case 2: return 1500;
         case 3: return 100;
-        case 4: return 5;
+        case 4: return 10;
         default: return -1;
     }
 }
 
 server::~server() {
-    Msq->deleteMsq();
+
 }

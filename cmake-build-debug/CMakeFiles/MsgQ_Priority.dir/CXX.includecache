@@ -15,6 +15,10 @@ unistd.h
 -
 iostream
 -
+pthread.h
+-
+stdio.h
+-
 
 /home/ellaine/CLionProjects/MsgQ_Priority/filemanager.h
 iostream
@@ -35,6 +39,8 @@ msq.h
 /home/ellaine/CLionProjects/MsgQ_Priority/msq.h
 client.h
 /home/ellaine/CLionProjects/MsgQ_Priority/client.h
+signal.h
+-
 
 /home/ellaine/CLionProjects/MsgQ_Priority/msq.h
 cstring

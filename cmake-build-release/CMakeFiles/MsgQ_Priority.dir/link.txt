@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/MsgQ_Priority.dir/main.cpp.o CMakeFiles/MsgQ_Priority.dir/server.cpp.o CMakeFiles/MsgQ_Priority.dir/msq.cpp.o CMakeFiles/MsgQ_Priority.dir/client.cpp.o  -o MsgQ_Priority -pthread 

@@ -84,6 +84,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/client.cpp">
+			<Option target="MsgQ_Priority"/>
+		</Unit>
 		<Unit filename="/home/ellaine/CLionProjects/MsgQ_Priority/client.h">
 			<Option target="MsgQ_Priority"/>
 		</Unit>
