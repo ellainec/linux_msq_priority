@@ -8,8 +8,7 @@ std::string read_message(int msg_qid, long type);
 int send_message(int msg_qid, int type,  std::string message);
 
 void server::start() {
-    bool keepGoing = true;
-    while (keepGoing) {
+    while (true) {
 
         std::string msgRead = Msq->read_message(CLIENT_TO_SERVER_TYPE);
         if(msgRead.size() > 0) {
@@ -17,22 +16,15 @@ void server::start() {
             int priority = atoi(msgRead.substr(0, 1).c_str());
             //find pid
             int seperater = msgRead.find(':');
-            std::string child_pid = msgRead.substr(1, seperater-1);
+            std::string client_pid = msgRead.substr(1, seperater-1);
             std::string filename = msgRead.substr(seperater+1, msgRead.size());
 
-            std::cout << "priority: " << priority << ", filename: " << filename << " pid: " << child_pid << std::endl;
             if (fork() == 0) {
-                std::cout << "i am child forked" << std::endl;
-                send_file(priority, filename, child_pid);
+                send_file(priority, filename, client_pid);
                 return;
             }
         }
     }
-//    std::cout << "outside of while loop" << std::endl;
-//    if (msgctl (msq_id, IPC_RMID, 0) < 0) {
-//        perror ("msgctl (remove queue) failed!");
-//        exit (3);
-//    }
 }
 
 void server::send_file(int priority, std::string filename, std::string pid) {
@@ -44,8 +36,8 @@ void server::send_file(int priority, std::string filename, std::string pid) {
     int errno;
     int filelength = fm.openFile(filename);
     if (filelength < 0) {
-        printf("error: %s", strerror(errno));
-        sprintf(buffer, "Unable to open file %s", filename.c_str());
+        sprintf(buffer, "Unable to open file %s: %s", filename.c_str(), strerror(errno));
+        std::cout << "Client " << pid << " requested file " << filename << ". Error: " << strerror(errno) << std:: endl;
         if (Msq->send_message(clientpid, buffer)) {
             perror("msgsend fail");
         }
@@ -54,13 +46,14 @@ void server::send_file(int priority, std::string filename, std::string pid) {
         if (Msq->send_message(clientpid, buffer)) {
             perror("msgsend fail");
         }
+        return;
     }
 
+    std::cout << "Sending to client " << pid << " with priority " << priority << ", filename: " << filename << std::endl;
 
     while(filelength > 0) {
         int length = buffersize - 1;
         if (filelength < (buffersize - 1)) {
-            std::cout << "filelength: " << filelength << " buffersize: " << buffersize << std::endl;
             length = filelength;
         }
         fm.read(buffer, length);
@@ -70,13 +63,13 @@ void server::send_file(int priority, std::string filename, std::string pid) {
         }
         memset(buffer, 0, sizeof(buffer));
         filelength -= length;
-        std::cout << "sent to " << pid << " priority: " << priority << std::endl;
     }
     memset(buffer, 0, sizeof(buffer));
     //send last message with size 0 to signal end of transfer
     if (Msq->send_message(clientpid, buffer)) {
         perror("msgsend fail");
     }
+    std::cout << "Finished sending to client " << pid << " with priority " << priority <<std::endl;
 }
 
 int server::getBufferSize(int priority) {

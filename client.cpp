@@ -7,19 +7,17 @@
 void client::run_client(int priority, std::string filename) {
     pid_t my_pid = getpid();
     std::string initMessage = std::to_string(priority) + std::to_string(my_pid) + ":" + filename;
-    std::cout << initMessage << std::endl;
     if (Msq->send_message(1, initMessage) == -1) {
         perror("msgsend fail");
         return;
     };
-    std::cout << "init message sent" << std::endl;
-
     client_thread_info *info = new client_thread_info;
     info->Msq = Msq;
     info->pid = my_pid;
     pthread_t readThread;
     pthread_create(&readThread, NULL, readMessages, (void*)info);
     pthread_join(readThread, NULL);
+    std::cout << std::endl;
 
 }
 

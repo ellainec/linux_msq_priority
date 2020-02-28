@@ -13,6 +13,7 @@
 #include <string.h>
 #include "filemanager.h"
 #include "msq.h"
+#include <errno.h>
 
 class server {
 public:
