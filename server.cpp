@@ -1,12 +1,46 @@
-//
-// Created by ellaine on 2020-02-26.
-//
-
 #include "server.h"
-//function prototypes
-std::string read_message(int msg_qid, long type);
-int send_message(int msg_qid, int type,  std::string message);
 
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: server.cpp
+--
+-- PROGRAM: Server
+--
+-- FUNCTIONS:
+-- void start()
+-- void send_file(int priority, std::string filename, std::string pid)
+-- int getBufferSize(int priority)
+--
+-- DATE: March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- NOTES:
+-- Server listens to the message queue for requests from clients, and interfaces with the FileManager class
+-- to fulfill the request by sending the requested file.
+----------------------------------------------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------
+-- FUNCTION: start
+--
+-- DATE:    March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- PARAMETERS: void
+--
+-- RETURNS: void
+--
+-- NOTES:
+-- Starts the server. Waits for a message with type CLIENT_TO_SERVER_TYPE and
+-- once received parses the message for the client's PID, priority and requested
+-- filename. A new process is created to serve that client. The server then waits
+-- again for another message indefinitely until SIGINT signal is received which
+-- will remove the message queue and exit the application.
+-------------------------------------------------------------------------------- */
 void server::start() {
     while (true) {
 
@@ -27,6 +61,30 @@ void server::start() {
     }
 }
 
+/*--------------------------------------------------------------------------------
+-- FUNCTION: send_file
+--
+-- DATE:    March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- PARAMETERS: int priority, std::string filename, std::string pid
+--
+-- RETURNS: void
+--
+-- NOTES:
+-- Function that runs after the server forks a new process to serve each client.
+-- Gets the buffer size based on the client's priority, and attempts to open
+-- the file requested. If the file can not be opened, the error message is sent to
+-- the client followed by a message with length 0 to signify that the client should
+-- exit. If the file can be opened, the file contents will be written to the message
+-- queue with the message length based on the buffer size.
+-- The message type used is the client's PID.
+-- A status message will print out to the terminal prior to the first message sent,
+-- and another one after the last message sent.
+-------------------------------------------------------------------------------- */
 void server::send_file(int priority, std::string filename, std::string pid) {
     int buffersize = getBufferSize(priority);
     char buffer[buffersize];
@@ -72,6 +130,23 @@ void server::send_file(int priority, std::string filename, std::string pid) {
     std::cout << "Finished sending to client " << pid << " with priority " << priority <<std::endl;
 }
 
+/*--------------------------------------------------------------------------------
+-- FUNCTION: getBufferSize
+--
+-- DATE:    March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- PARAMETERS: int priority
+--
+-- RETURNS: int
+--
+-- NOTES:
+-- Returns an int to represent the buffer size that should be used when sending
+-- a message to the client based on the client's priority
+-------------------------------------------------------------------------------- */
 int server::getBufferSize(int priority) {
     switch (priority) {
         case 1: return 4000;

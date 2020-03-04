@@ -1,5 +1,3 @@
-#include <iostream>
-
 /*--------- showmsg.c: Show message queue details ----*/
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +8,43 @@
 
 #define KEY_ID 2222
 
+
+/*------------------------------------------------------------------------------------------------------------------
+-- SOURCE FILE: main.cpp
+--
+-- PROGRAM: main
+--
+-- FUNCTIONS:
+-- in main (int argc, char *argv[])
+-- void catch_int (int signo)
+--
+-- DATE: March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- NOTES:
+-- Entry point of the program. Depending on user arguments a server or client will be started.
+----------------------------------------------------------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------
+-- FUNCTION: catch_int
+--
+-- DATE:    March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- PARAMETERS: signo
+--
+-- RETURNS: void
+--
+-- NOTES:
+-- Handler for a SIGINT signal to remove the created
+-- message queue before exiting the program.
+-------------------------------------------------------------------------------- */
 void catch_int(int signo)
 {
     if (msq::id != -1) {
@@ -21,6 +56,27 @@ void catch_int(int signo)
     exit(0);
 }
 
+
+
+/*--------------------------------------------------------------------------------
+-- FUNCTION: main
+--
+-- DATE:    March 2, 2020
+--
+-- DESIGNER: Ellaine Chan
+--
+-- PROGRAMMER: Ellaine Chan
+--
+-- PARAMETERS: int argc, char *argv[]
+--
+-- RETURNS: int
+--
+-- NOTES:
+-- Entry point of program. Sets up the signal handler for SIGINT and reads
+-- the command line arguments. If argv[1] is "s", a server application is started.
+-- Otherwise, a client application is assumed and priority and filename arguments
+-- are read.
+-------------------------------------------------------------------------------- */
 int main (int argc , char *argv[])
 {
     signal(SIGINT, catch_int);
@@ -54,8 +110,6 @@ int main (int argc , char *argv[])
         c->run_client(priority, filename);
         delete c;
     }
-    //Msq->deleteMsq();
-    //delete Msq;
     exit(0);
 }
 
